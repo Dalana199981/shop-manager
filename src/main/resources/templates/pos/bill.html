@@ -1,0 +1,98 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--/*@thymesVar id="bill" type="com.dalana.ShopManager.Bill"*/-->
+<div th:replace="/header"></div>
+<div class="col-md-12 pt-1">
+    <div class="card">
+        <div class="card-header card-header-success">
+            <h3 class="card-title ">Sales Invoice</h3>
+            <p class="card-category" th:text="${bill.id}"> Here is a subtitle for this table</p>
+        </div>
+        <div class="card-body">
+    <div class="panel panel-default" style="margin-top: 30px">
+
+        <div class="panel-body">
+
+            <table style="width: 100%">
+                <tr>
+                    <th>Customer</th>
+                    <td th:text="${bill.customer}"></td>
+                    <th>Bill No</th>
+                    <td th:text="${bill.id}"></td>
+                </tr>
+                <tr>
+                    <th>Start Time</th>
+                    <td th:text="${#temporals.format(bill.startTime, 'dd-MM-yyyy HH:mm')}"></td>
+                    <th>Last Updated Time</th>
+                    <td th:text="${#temporals.format(bill.lastUpdated, 'dd-MM-yyyy HH:mm')}"></td>
+                </tr>
+            </table>
+            <hr>
+            <div class="full-width" th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}">
+                <form th:action="@{#}" method="get" style="font-size: 15px">
+
+                    Add Item <input  autofocus name="itemCode">
+                    <button class="btn btn-success btn-lg">Add</button>
+                    <span class="badge badge-danger" th:text="${error}"></span>
+
+                </form>
+            </div>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th  th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item: ${bill.items}">
+                    <td th:text="${itemStat.index+1}">{{i+1}}</td>
+                    <td th:text="${item.item.getName()}">{{item.item.name}}</td>
+                    <td th:text="${item.item.price}">{{item.item.price}}</td>
+                    <td th:text="${item.qty}">{{item.qty}}</td>
+                    <td th:text="${item.getSubTotal()}">{{item.total}}</td>
+                    <td  th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}">
+                        <a th:href="${#httpServletRequest.requestURI+'?remove='+item.item.getId()}" class="red">X</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+
+                <tr>
+                    <td>Total</td>
+                    <th th:text="${bill.getTotal()}">{{bill.total}}</th>
+                </tr>
+                <tr>
+                    <td>Paid</td>
+                    <th th:text="${bill.paidAmount}">{{bill.paidAmount}}</th>
+                </tr>
+                <tr>
+                    <td>Due</td>
+                    <th th:text="${bill.getTotal()-bill.paidAmount}">{{bill.paidAmount}}</th>
+                </tr>
+            </table>
+            <div class="full-width" style='margin-top: 10px;justify-content: space-around;'>
+                <th:block th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}">
+                    <a class="btn btn-warning btn-lg" href="/pos">Suspend</a>
+                    <a class="btn btn-lg btn-info"
+                       th:href="${#httpServletRequest.requestURI+'?complete=true'}">Complete</a>
+                </th:block>
+                <br>
+                <br>
+                <form th:if="${bill.getTotal()-bill.paidAmount>0}" th:action="@{#}" method="get" style="font-size: 15px">
+                    <input placeholder="Amount to Pay" required type="number"  name="amount">
+                    <a class="btn btn-lg btn-success">Payment</a>
+                </form>
+                <a class="btn btn-lg" href="/pos" >Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,55 @@
+package com.dalana.ShopManager;
+
+import org.dom4j.rule.Mode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
+@Controller
+@RequestMapping("item")
+public class ItemController {
+
+    @Autowired
+    ItemRepository itemRepository;
+
+    @GetMapping
+    String getItems(Model model) {
+        model.addAttribute("items", itemRepository.findAll());
+        return "items/items";
+    }
+
+    @GetMapping(path = {"create", "{item}"})
+    String itemGet(Model model, @PathVariable Optional<Item> item) {
+        if (item.isEmpty()) {
+            model.addAttribute("item", new Item());
+        } else {
+            model.addAttribute("item", item.get());
+        }
+        return "items/item-form";
+    }
+
+    @PostMapping(path = {"create"})
+    String itemPost(Item item) {
+        itemRepository.save(item);
+        return "redirect:";
+    }
+
+    @GetMapping("{item}/add-stock")
+    String getAddStock(Model model, @PathVariable Item item) {
+        return "items/add-stock";
+    }
+
+    @PostMapping("{item}/add-stock")
+    String getAddStock(Model model, @PathVariable Item item, Integer amount) {
+        if (amount != null) {
+            if (item.stock != null)
+                item.stock += amount;
+            else item.stock = amount;
+        }
+        itemRepository.save(item);
+        return "redirect:/item";
+    }
+}

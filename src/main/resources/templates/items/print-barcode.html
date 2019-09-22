@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard}" th:with="title='Print Sickers'">
+<div layout:fragment="content">
+    <div class="col-md-6 ">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h3 class="card-title ">Print Barcode</h3>
+            </div>
+            <div class="card-body">
+                <h3 th:text="${item.name}+' #' +${item.id}"></h3>
+                <h4>Amount Needed <input id="amount" value="1"></h4>
+                <button onclick="print()">Print</button>
+            </div>
+            <svg id="barcode"></svg>
+
+            <div id="print">
+                <style>
+                    @page {
+                        size: 5cm 2cm;
+                    }
+
+                    svg {
+                        page-break-before: always;
+                        page-break-after: always;
+                        display: block;
+                    }
+                </style>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/barcodes/JsBarcode.codabar.min.js"></script>
+                <script th:inline="javascript">
+                    JsBarcode("#barcode", [[${#numbers.formatInteger(item.id,8)}]]);</script>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div layout:fragment="script">
+
+    <script>
+        function print() {
+            var mywindow = window.open('', 'PRINT', 'width=10cm');
+            mywindow.document.write(document.getElementById('print').innerHTML);
+            for (var i = 0; i < document.getElementById('amount').value; i++) {
+                mywindow.document.write(document.getElementById('barcode').outerHTML);
+            }
+            mywindow.print();
+            mywindow.close();
+            return true;
+        }
+    </script>
+</div>
+</html>

@@ -29140,7 +29140,7 @@ button:focus {
 
 .btn {
     position: relative;
-    padding: 12px 30px;
+    /* padding: 12px 30px; */
     margin: 0.3125rem 1px;
     font-size: .75rem;
     font-weight: 400;

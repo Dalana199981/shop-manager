@@ -43,6 +43,13 @@ public class ItemController {
         return "items/add-stock";
     }
 
+
+    @GetMapping("{item}/print-barcode")
+    String printBarcode(Model model, @PathVariable Item item) {
+        return "items/print-barcode";
+    }
+
+
     @PostMapping("{item}/add-stock")
     String getAddStock(Model model, @PathVariable Item item, Integer amount) {
         if (amount != null) {

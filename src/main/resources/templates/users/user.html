@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard}" th:with="title='User Information'">
+<!--/*@thymesVar id="user" type="com.dalana.ShopManager.Auth.User"*/-->
+<div layout:fragment="content">
+
+    <div class="col-md-6 ">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h3 class="card-title ">New User </h3>
+            </div>
+            <div class="card-body">
+                <form th:object="${user}" method="post" action="/users/create">
+                    <input hidden th:field="*{id}"/>
+                    <table>
+                        <tr>
+                            <td>Username</td>
+                            <td><input class="form-control" th:field="*{username}"></td>
+                        </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td>
+                                <select class="form-control s-select" th:field="*{role}">
+                                    <option th:value="ROLE_ADMIN">ADMIN</option>
+                                    <option th:value="ROLE_USER">USER</option>
+                                </select>
+                                <br><br>
+                            </td>
+                        </tr>
+                        <tr th:if="*{id}">
+                            <td colspan="2" class="text-muted">If you want to change the password enter it below
+                                otherwise keep empty
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>New Password</td>
+                            <td><input class="form-control" name="newPassword"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button class="btn btn-primary">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

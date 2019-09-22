@@ -2,6 +2,7 @@ package com.dalana.ShopManager;
 
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,8 @@ public class ItemController {
     ItemRepository itemRepository;
 
     @GetMapping
-    String getItems(Model model) {
-        model.addAttribute("items", itemRepository.findAll());
+    String getItems(Model model, Pageable pageable) {
+        model.addAttribute("items", itemRepository.findAll(pageable));
         return "items/items";
     }
 

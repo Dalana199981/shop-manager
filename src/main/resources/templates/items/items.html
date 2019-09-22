@@ -1,46 +1,74 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="/header(title='Item Management')"></div>
-<div class="col-md-12 pt-1">
-    <div class="card">
-        <div class="card-header card-header-primary">
-            <h3 class="card-title ">All Items</h3>
+<html xmlns:th="http://www.thymeleaf.0org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      data-th-with="title='Items Information'" layout:decorate="~{layouts/dashboard}">
+<div layout:fragment="content">
+    <div class="col-md-12 pt-1">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h3 class="card-title ">All Items</h3>
 
-        </div>
-        <div class="card-body">
-            <a href="/item/create" class="btn btn-success">New Item</a></p>
-            <table class="table ">
-                <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th colspan="2">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each=" item : ${items}">
+            </div>
+            <div class="card-body">
+                <a href="/item/create" class="btn btn-success">New Item</a></p>
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each=" item : ${items}">
 
-                    <td th:text="${#numbers.formatInteger(item.id,8)}"></td>
-                    <td th:text="${item.name}">Name</td>
-                    <td th:text="${item.price}">Price</td>
-                    <td th:text="${item.stock}">Stock</td>
-                    <td>
-                        <div class="dropdown dropdown-kebab-pf">
-                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                               Actions
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight">
-                                <li><a th:href="${'/item/'+item.id}">Edit</a></li>
-                                <li><a th:href="${'/item/'+item.id}+'/add-stock'">Add Stock</a></li>
-                                <li><a href="#">Print Barcode</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        <td th:text="${#numbers.formatInteger(item.id,8)}"></td>
+                        <td th:text="${item.name}">Name</td>
+                        <td th:text="${item.price}">Price</td>
+                        <td th:text="${item.stock}">Stock</td>
+                        <td>
+                            <div class="dropdown dropdown-kebab-pf">
+                                <a class="btn btn-sm btn-link btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight">
+                                    <li><a th:href="${'/item/'+item.id}">Edit</a></li>
+                                    <li><a th:href="${'/item/'+item.id}+'/add-stock'">Add Stock</a></li>
+                                    <li><a href="#">Print Barcode</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination pagination-primary"
+                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                    <li class="page-item">
+                        <a th:if="${items.number>0}"th:href="${urlBuilder.replaceQueryParam('page', items.number-1).toUriString()}" class="page-link" > prev</a>
+                    </li>
+                    <li class="page-item" th:classappend="${i==items.number}?'active':''"
+                        th:each="i: ${#numbers.sequence(0, items.getTotalPages() - 1)}">
+                        <a th:href="${urlBuilder.replaceQueryParam('page', i).toUriString()}" class="page-link"
+                           th:text="${i+1}">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a th:if="${items.number<items.getTotalPages()-1}" th:href="${urlBuilder.replaceQueryParam('page', items.number+1).toUriString()}" class="page-link">next </a>
+                    </li>
+                    <li style="flex: 1  1 0"></li>
+                    <li>
+                        <form action="" method="get" style="display: inline">
+                            <span>items pre page </span><select name="size" class="" onChange="submit()">
+                            <option th:selected="${items.size==2}" value="2">2</option>
+                            <option th:selected="${items.size==10}" value="10">10</option>
+                            <option th:selected="${items.size==20}" value="20">20</option>
+                        </select>
+                        </form>
+                    </li>
+                </ul>
+
+
+            </div>
         </div>
     </div>
 </div>
+</html>

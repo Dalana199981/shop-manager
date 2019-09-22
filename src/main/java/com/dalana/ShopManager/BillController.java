@@ -1,20 +1,31 @@
 package com.dalana.ShopManager;
 
-import org.dom4j.rule.Mode;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dalana.ShopManager.Auth.User;
+import com.dalana.ShopManager.Auth.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.transaction.Transactional;
 
 @RequestMapping("bill")
 @Controller
 public class BillController {
 
-    @Autowired
+    private final
     BillRepo billRepo;
+    private final
+    UserRepository userRepository;
+
+    public BillController(BillRepo billRepo, UserRepository userRepository) {
+        this.billRepo = billRepo;
+        this.userRepository = userRepository;
+
+    }
+
+
 
     @GetMapping("")
     String createBill(Model model, String customer) {
@@ -29,6 +40,11 @@ public class BillController {
     private String getBill(Model model, @PathVariable Bill bill) {
         model.addAttribute("bill", bill);
         return "pos/bill";
+    }
+    @GetMapping("{bill}/print")
+    private String PrintBill(Model model, @PathVariable Bill bill) {
+        model.addAttribute("bill", bill);
+        return "pos/print";
     }
 
     @GetMapping(value = "{bill}", params = {"itemCode"})

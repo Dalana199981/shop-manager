@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard}" data-th-with="title='Users'">
+<div layout:fragment="content">
+    <div class="col-md-12 ">
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h3 class="card-title ">User Accounts</h3>
+            </div>
+            <div class="card-body">
+                <a href="/users/create" class="btn btn-success">New User</a></p>
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--/*@thymesVar id="users" type="List<com.dalana.ShopManager.Auth.User>"*/-->
+                    <tr th:each=" item : ${users}">
+                        <td th:text="${item.username}"></td>
+                        <td th:text="${item.role}">Name</td>
+                        <td>
+                            <a th:href="${'/users/'+item.id}"><i class="material-icons">edit</i></a>
+                            <a th:href="${'/users/'+item.id}+'/add-stock'"><i class="material-icons">secqure</i></a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

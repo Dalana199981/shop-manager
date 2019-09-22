@@ -1,0 +1,66 @@
+<style>
+    * {
+        font-family: Consolas;
+        font-size: small;
+    }
+    @page  {
+        width: 5cm;
+    }
+</style>
+<div style="width: 5cm;margin: 0 auto ">
+    <header style="text-align: center;margin: 8pt">
+        <div>Test Shop<br>Address Address</div>
+        <h3 style="margin: 0">Sales Invoice</h3>
+    </header>
+    <div>
+        <b>Reference : </b>
+        <span th:text="${#numbers.formatInteger(bill.id,10)}"></span>
+    </div>
+    <div>
+        <b>Customer</b>
+        <span th:text="${bill.customer}"></span>
+    </div>
+    <b>Time</b>
+    <span th:text="${#temporals.format(bill.lastUpdated, 'dd-MM-yyyy HH:mm')}"></span>
+    <hr>
+    <table style="width: 100%;">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}"></th>
+        </tr>
+
+        <tr th:each="item: ${bill.items}">
+            <td th:text="${itemStat.index+1}">{{i+1}}</td>
+            <td th:text="${item.item.getName()}">{{item.item.name}}</td>
+            <td th:text="${item.item.price}">{{item.item.price}}</td>
+            <td th:text="${item.qty}">{{item.qty}}</td>
+            <td style="text-align: right" th:text="${item.getSubTotal()}">{{item.total}}</td>
+        </tr>
+
+    </table>
+    <hr>
+    <table style="width: 100%">
+
+        <tr>
+            <td>Total</td>
+            <th style="text-align: right" th:text="${bill.getTotal()}">{{bill.total}}</th>
+        </tr>
+        <tr>
+            <td>Paid</td>
+            <th style="text-align: right" th:text="${bill.paidAmount}">{{bill.paidAmount}}</th>
+        </tr>
+        <tr>
+            <td>Due</td>
+            <th style="text-align: right" th:text="${bill.getTotal()-bill.paidAmount}">{{bill.paidAmount}}</th>
+        </tr>
+    </table>
+    <footer style="text-align: center;margin: 8pt">
+        <div></div>
+        <h3 style="margin: 0">Thank You Come Again</h3>
+    </footer>
+
+</div>

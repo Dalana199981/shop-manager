@@ -24,7 +24,7 @@ public class ItemController {
 
     @GetMapping(path = {"create", "{item}"})
     String itemGet(Model model, @PathVariable Optional<Item> item) {
-        if (item.isEmpty()) {
+        if (!item.isPresent()) {
             model.addAttribute("item", new Item());
         } else {
             model.addAttribute("item", item.get());

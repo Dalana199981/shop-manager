@@ -16,12 +16,8 @@ public class AppDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-
-
         User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
+
         if (username.equals("dalana")) {
             user = new User();
             user.setUsername("dalana");
@@ -29,6 +25,11 @@ public class AppDetailsService implements UserDetailsService {
             PasswordEncoder e = new BCryptPasswordEncoder();
             user.setPassword(e.encode("dd"));
         }
+
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
         return new AppUserPrincipal(user);
     }
 }

@@ -18,6 +18,7 @@
                     @page {
                         size: 5cm 2cm;
                     }
+
                     svg {
                         page-break-before: always;
                         page-break-after: always;
@@ -26,7 +27,7 @@
                 </style>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/barcodes/JsBarcode.codabar.min.js"></script>
                 <script th:inline="javascript">
-                    JsBarcode("#barcode", [[${#numbers.formatInteger(item.id,8)}]]);</script>
+                    JsBarcode("#barcode", [[${#numbers.formatInteger(item.id,8)}]], {height: 30, width: 1.8,});</script>
             </div>
 
         </div>

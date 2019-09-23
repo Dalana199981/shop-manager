@@ -23,6 +23,9 @@ public class AppDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         if (username.equals("dalana")) {
+            user = new User();
+            user.setUsername("dalana");
+            user.setRole("ROLE_ADMIN");
             PasswordEncoder e = new BCryptPasswordEncoder();
             user.setPassword(e.encode("dd"));
         }

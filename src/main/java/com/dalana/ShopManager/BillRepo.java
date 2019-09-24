@@ -11,6 +11,6 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
     @Query("select B from Bill B order by B.startTime desc ")
     Page<List<Bill>> findTop(Pageable pageable);
 
-    @Query(value = "select sum( B.paid_Amount ), day (B.last_Updated), count(*) from Bill B  group by  day (B.last_Updated)  ", nativeQuery = true)
+    @Query(value = "select sum( B.paid_Amount ), to_char (B.last_Updated,'dd'), count(*) from Bill B  group by  to_char (B.last_Updated,'dd')  ", nativeQuery = true)
     Object[] lastDayRevenue();
 }

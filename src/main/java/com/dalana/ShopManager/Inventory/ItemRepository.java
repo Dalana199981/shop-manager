@@ -1,4 +1,4 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.Inventory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

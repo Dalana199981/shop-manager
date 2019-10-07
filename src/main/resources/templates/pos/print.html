@@ -30,7 +30,7 @@
             <th>Price</th>
             <th>Qty</th>
             <th>Total</th>
-            <th th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}"></th>
+            <th th:if="${bill.status==T(com.dalana.ShopManager.POS.BillStatus).PENDING}"></th>
         </tr>
 
         <tr th:each="item: ${bill.items}">

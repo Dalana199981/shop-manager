@@ -1,6 +1,5 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.Inventory;
 
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;

@@ -1,10 +1,10 @@
 <div th:replace="header :: head" ></div>
-<body class="login-page sidebar-collapse">
+<body class=" sidebar-collapse">
 
 <div class="page-header header-filter" xmlns:th="http://www.thymeleaf.org"
      style="background-image: url('/img/shop-bg.jpg'); background-size: cover; background-position: top center;">
     <div class="container">
-        <nav style="    position: inherit;"
+        <nav style=" position: inherit;"
              class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100"
              id="sectionsNav">
             <div class="container">
@@ -91,7 +91,6 @@
                                 <input type="password" name="password" class="form-control" placeholder="Password">
                             </div>
                             <div class="alert alert-danger" role="alert" th:if="${param.error}"> Invalid Credentials</div>
-
                         </div>
                         <div class="footer text-center">
                             <button class="btn btn-primary btn-link btn-wd btn-lg">Login</button>

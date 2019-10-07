@@ -1,7 +1,7 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.POS;
 
-import com.dalana.ShopManager.Auth.User;
 import com.dalana.ShopManager.Auth.UserRepository;
+import com.dalana.ShopManager.Inventory.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +24,6 @@ public class BillController {
         this.userRepository = userRepository;
 
     }
-
-
 
     @GetMapping("")
     String createBill(Model model, String customer) {
@@ -50,7 +48,7 @@ public class BillController {
     @GetMapping(value = "{bill}", params = {"itemCode"})
     private String addItem(@PathVariable Bill bill, @RequestParam("itemCode") Item itemCode, RedirectAttributes redir) {
         if (itemCode != null) {
-            if (itemCode.stock < (bill.getQuantity(itemCode) + 1))
+            if (itemCode.getStock() < (bill.getQuantity(itemCode) + 1))
                 redir.addFlashAttribute("error", "NO ENOUGH STOCK");
             else {
                 bill.addItem(itemCode);

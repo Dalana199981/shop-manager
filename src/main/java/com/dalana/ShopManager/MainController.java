@@ -1,5 +1,7 @@
 package com.dalana.ShopManager;
 
+import com.dalana.ShopManager.Inventory.ItemRepository;
+import com.dalana.ShopManager.POS.BillRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

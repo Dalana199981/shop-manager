@@ -25,7 +25,8 @@
                             </tr>
                         </table>
                         <hr>
-                        <div class="full-width" th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}">
+                        <div class="full-width"
+                             th:if="${bill.status==T(com.dalana.ShopManager.POS.BillStatus).PENDING}">
                             <form th:action="@{#}" method="get" style="font-size: 15px">
                                 Add Item <input autofocus name="itemCode">
                                 <button class="btn btn-success ">Add</button>
@@ -40,7 +41,7 @@
                                 <th>Price</th>
                                 <th>Qty</th>
                                 <th>Total</th>
-                                <th th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}"></th>
+                                <th th:if="${bill.status==T(com.dalana.ShopManager.POS.BillStatus).PENDING}"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -50,7 +51,7 @@
                                 <td th:text="${item.item.price}">{{item.item.price}}</td>
                                 <td th:text="${item.qty}">{{item.qty}}</td>
                                 <td th:text="${item.getSubTotal()}">{{item.total}}</td>
-                                <td th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}">
+                                <td th:if="${bill.status==T(com.dalana.ShopManager.POS.BillStatus).PENDING}">
                                     <a th:href="${#httpServletRequest.requestURI+'?remove='+item.item.getId()}"
                                        class="red">X</a>
                                 </td>
@@ -78,7 +79,7 @@
                                 <input id="amount" placeholder="Amount to Pay" required type="number" name="amount">
                                 <button class="btn  btn-success" type="submit">Payment</button>
                             </form>
-                            <th:block th:if="${bill.status==T(com.dalana.ShopManager.BillStatus).PENDING}">
+                            <th:block th:if="${bill.status==T(com.dalana.ShopManager.POS.BillStatus).PENDING}">
                                 <a class="btn btn-warning " href="/pos">Suspend</a>
                                 <a class="btn  btn-info"
                                    th:href="${#httpServletRequest.requestURI+'?complete=true'}">Complete</a>

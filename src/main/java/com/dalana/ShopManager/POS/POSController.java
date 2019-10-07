@@ -1,5 +1,6 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.POS;
 
+import com.dalana.ShopManager.POS.BillRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;

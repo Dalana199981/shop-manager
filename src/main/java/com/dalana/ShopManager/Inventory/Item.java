@@ -1,4 +1,4 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.Inventory;
 
 import lombok.Data;
 
@@ -14,7 +14,6 @@ public class Item {
     @Id
     @GeneratedValue
     Long id;
-
 
     @Column
     String name;

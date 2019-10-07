@@ -1,4 +1,4 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.POS;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

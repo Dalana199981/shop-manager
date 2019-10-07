@@ -24,13 +24,13 @@
                         <p>POS</p>
                     </a>
                 </li>
-                <li class="nav-item " th:classappend="${#httpServletRequest.requestURI=='/item'?'active':''}">
+                <li class="nav-item " sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${#httpServletRequest.requestURI=='/item'?'active':''}">
                     <a class="nav-link" href="/item">
                         <i class="material-icons">content_paste</i>
                         <p>Items</p>
                     </a>
                 </li>
-                <li class="nav-item " th:classappend="${#httpServletRequest.requestURI=='/users'?'active':''}">
+                <li class="nav-item " sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${#httpServletRequest.requestURI=='/users'?'active':''}">
                     <a class="nav-link" href="/users">
                         <i class="material-icons">persons</i>
                         <p>Users</p>

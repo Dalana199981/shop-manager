@@ -1,5 +1,6 @@
-package com.dalana.ShopManager;
+package com.dalana.ShopManager.POS;
 
+import com.dalana.ShopManager.Inventory.Item;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,7 +33,7 @@ public class Bill {
 
     void complete() {
         for (BillItem item : items) {
-            item.item.stock = item.item.stock - item.qty;
+            item.item.setStock(item.item.getStock() - item.qty);
         }
         this.setStatus(BillStatus.COMPLETED);
     }
@@ -117,7 +118,7 @@ class BillItem {
     Integer qty;
 
     public Float getSubTotal() {
-        return item.price * qty;
+        return item.getPrice() * qty;
     }
 
     public void increaseQty(int no) {

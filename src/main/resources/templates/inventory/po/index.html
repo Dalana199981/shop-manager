@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard(title='Inventory')}" th:with="title='Purchase Orders'">
+<head>
+    <title>Title</title>
+</head>
+<div layout:fragment="content">
+    <h1>Purchase Orders</h1>
+    <h2 class="ui header ">
+        Active Purchase Orders
+        <a href="/inventory/po/create" class="ui button basic blue " style="float: right"> New Purchase Order</a>
+    </h2>
+
+
+        <!--<table class="ui table ">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" item : ${items}">
+                <td th:text="${#numbers.formatInteger(item.id,8)}"></td>
+                <td th:text="${item.name}">Name</td>
+                <td th:text="${item.price}">Price</td>
+                <td th:text="${item.stock}">Stock</td>
+                <td>
+                    <a th:href="${'/inventory/item/'+item.id}">Edit</a> |
+                    <a th:href="${'/inventory/item/'+item.id}+'/add-stock'">Add Stock</a> |
+                    <a th:href="${'/inventory/item/'+item.id}+'/print-barcode'" href="#">Print Barcode</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="5">
+                    <form action="" method="get" style="display: inline">
+                        <span>Items Pre Page </span><select name="size" class="" onChange="submit()">
+                        <option th:selected="${items.size==2}" value="2">2</option>
+                        <option th:selected="${items.size==10}" value="10">10</option>
+                        <option th:selected="${items.size==20}" value="20">20</option>
+                    </select>
+                    </form>
+                    <div class="ui right floated pagination menu"
+                         th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                        <a class="icon item " th:classappend="${items.number<1}?'disabled':''"
+                           th:href="${urlBuilder.replaceQueryParam('page', items.number-1).toUriString()}">
+                            <i class="left chevron icon"></i>
+                        </a>
+                        <a class="item " th:classappend="${i==items.number}?'active':''"
+                           th:each="i: ${#numbers.sequence(0, items.getTotalPages() - 1)}"
+                           th:href="${urlBuilder.replaceQueryParam('page', i).toUriString()}"
+                           th:text="${i+1}">1</a>
+
+                        <a class="icon item"
+                           th:href="${urlBuilder.replaceQueryParam('page', items.number+1).toUriString()}">
+                            <i class="right chevron icon"></i>
+                        </a>
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>-->
+
+
+</div>
+<div layout:fragment="script"></div>
+</html>

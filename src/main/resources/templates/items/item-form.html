@@ -1,52 +1,65 @@
 <html xmlns:th="http://www.thymeleaf.0org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
       layout:decorate="~{layouts/dashboard}" th:with="title='Item Information'">
-<!--/*@thymesVar id="bill" type="com.dalana.ShopManager.POS.Bill"*/-->
+<!--/*@thymesVar id="bill" type="com.helix.erp.inventory.POS.Bill"*/-->
 <div layout:fragment="content">
 
-    <div class="col-md-6 ">
-        <div class="card">
-            <div class="card-header card-header-primary">
-                <h3 class="card-title ">Item <span th:if="${item.id}"
-                                                   th:text="${'Edit - '+ item.name+' #('+item.id+')'}"></span></h3>
-            </div>
-            <div class="card-body">
-                <form th:object="${item}" method="post" action="/item/create">
-                    <input hidden th:field="*{id}"/>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td>Name</td>
-                            <td><input required class="form-control" th:field="*{name}"></td>
-                        </tr>
-                        <tr>
-                            <td>Stock</td>
-                            <td class="form-group">
-                                <input required class="form-control" type="number" th:readonly="*{id}" th:field="*{stock}"></td>
-                        </tr>
-                        <tr>
-                            <td>Unit Price&nbsp;</td>
-                            <td><input required class="form-control" type="number" th:field="*{price}"></td>
-                        </tr>
-                        <tr>
-                            <td>Unit</td>
-                            <td>
-                                <select required class="form-control s-select" th:field="*{unit}">
-                                    <option th:value="NOS">NOS</option>
-                                    <option th:value="PKT">PKT</option>
-                                    <option th:value="m">m</option>
-                                </select>
-                                <br> <br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary">Submit</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+    <h1>Item <span th:if="${item.id}" th:text="${'Edit - '+ item.name+' #('+item.id+')'}"></span></h1>
+
+    <form class="ui form" th:object="${item}" method="post" action="/inventory/item/create">
+        <input hidden th:field="*{id}"/>
+        <h4 class="ui dividing header">General Information</h4>
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label>Name</label>
+                    <input required th:field="*{name}">
+                </div>
+                <div class="field">
+                    <label>Brand / Trade Name</label>
+                    <input th:field="*{tradeName}">
+                </div>
             </div>
         </div>
-    </div>
+        <div class="field">
+            <label>Description</label>
+            <textarea rows="4" th:field="*{description}"></textarea>
+        </div>
+
+        <h4 class="ui dividing header">Stock Management</h4>
+        <div class="field">
+            <div class="three fields">
+                <div class="field">
+                    <label>Category</label>
+                    <select class="ui dropdown" required th:field="*{category}">
+                        <option th:each="cat:${categories}" th:value="${cat.id}" th:text="${cat.name}">NOS</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Unit</label>
+                    <select class="ui dropdown" required th:field="*{unit}">
+                        <option th:value="NOS">NOS</option>
+                        <option th:value="PKT">PKT</option>
+                        <option th:value="m">m</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Supplier/s</label>
+                    <select class="ui dropdown"  multiple="" required th:field="*{suppliers}">
+                        <option th:each="sup:${suppliers}" th:value="${sup.supplierId}" th:text="${sup.name}">NOS
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <h4 class="ui dividing header">Pricing</h4>
+        <div class="field">
+            <label>Unit Price</label>
+            <input required class="form-control" type="number" th:field="*{price}">
+        </div>
+
+        <button class="ui button" tabindex="0">Submit</button>
+    </form>
+
 </div>
 </html>

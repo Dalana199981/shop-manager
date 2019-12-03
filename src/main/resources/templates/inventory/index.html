@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard(title='Inventory')}" th:with="title='Inventory'">
+<head>
+    <title>Title</title>
+</head>
+<div layout:fragment="content">
+    <h1>Inventory Home</h1>
+    <div class="  ">
+        <div class="ui cards">
+            <div class="card">
+                <div class="content">
+                    <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg">
+                    <div class="header">
+                        Items
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="ui two buttons">
+                        <a class="ui basic green button" href="inventory/item">View All</a>
+                        <a class="ui basic red button" href="inventory/item/create">Create New</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg">
+                    <div class="header">
+                        Suppliers
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="ui two buttons">
+                        <a class="ui basic green button" href="inventory/supplier">View All</a>
+                        <a class="ui basic red button" href="inventory/supplier/create">Create New</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a class="ui basic blue button" href="inventory/po">Purchase Orders</a>
+
+    </div>
+    <div layout:fragment="script">
+        <script>
+        </script>
+    </div>
+</html>

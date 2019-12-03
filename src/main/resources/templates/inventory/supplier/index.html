@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard(title='Inventory')}" th:with="title='Inventory'">
+<head>
+    <title>Title</title>
+</head>
+<div layout:fragment="content">
+    <h1>Suppliers</h1>
+    <table class="ui table ">
+        <thead class="text-primary">
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Telephone</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" item : ${suppliers}">
+            <td th:text="${item.name}">Name</td>
+            <td th:text="${item.contactInfo.addressSingle}">Price</td>
+            <td th:text="${item.contactInfo.tel}">Stock</td>
+            <td><a th:href="@{'/inventory/supplier/'+${item.supplierId}}">Edit</a></td>
+        </tr>
+        </tbody>
+    </table
+    >
+
+</div>
+<div layout:fragment="script"></div>
+</html>
+
+

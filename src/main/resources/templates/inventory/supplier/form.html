@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard(title='Inventory')}" th:with="title='Inventory'">
+<head>
+    <title>Title</title>
+</head>
+<div layout:fragment="content">
+    <h1>Supplier Creation</h1>
+
+    <form class="ui form" th:object="${supplier}" method="post" action="">
+        <h4 class="ui dividing header">General Information</h4>
+        <div class="field">
+            <label>Name</label>
+            <div class="two fields">
+                <div class="field">
+                    <input type="text" th:field="*{name}" placeholder="First Name">
+                </div>
+                <div class="field">
+                    <input type="text" name="shipping[last-name]" placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+        <!--div class="field">
+            <label>Billing Address</label>
+            <div class="fields">
+                <div class="twelve wide field">
+                    <input type="text" name="shipping[address]" placeholder="Street Address">
+                </div>
+                <div class="four wide field">
+                    <input type="text" name="shipping[address-2]" placeholder="Apt #">
+                </div>
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>State</label>
+                <select class="ui fluid dropdown">
+                    <option value="">State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Country</label>
+                <div class="ui fluid search selection dropdown">
+                    <input type="hidden" name="country">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Country</div>
+                    <div class="menu">
+                        <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
+                        <div class="item" data-value="zw"><i class="zw flag"></i>Zimbabwe</div>
+                    </div>
+                </div>
+            </div>
+        </div-->
+        <h4 class="ui dividing header">Address and Contact Information</h4>
+        <div class="field">
+            <label>Address</label>
+            <div class="two fields">
+                <div class="field">
+                    <input type="text" th:field="*{contactInfo.lineOne}" placeholder="Address Line 1">
+                </div>
+                <div class="field">
+                    <input type="text" th:field="*{contactInfo.lineTwo}" placeholder="Address Line 2">
+                </div>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="five wide field">
+                <label>City</label>
+                <input type="text" th:field="*{contactInfo.city}" placeholder="City">
+            </div>
+            <div class="three wide field">
+                <label>Postal Code</label>
+                <input type="text" th:field="*{contactInfo.postalCode}" placeholder="Postal Code">
+            </div>
+            <div class="eight wide field">
+                <label>Telephone</label>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" th:field="*{contactInfo.telFixed}" placeholder="Fixed">
+                    </div>
+                    <div class="field">
+                        <input type="text" th:field="*{contactInfo.telMobile}" placeholder="Mobile">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="ui button" tabindex="0">Submit</button>
+    </form>
+</div>
+<div layout:fragment="script"></div>
+</html>
+
+

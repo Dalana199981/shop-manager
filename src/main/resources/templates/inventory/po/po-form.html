@@ -1,0 +1,82 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard}" th:with="title='Purchase Orders'">
+<!--/*@thymesVar id="po" type="com.helix.erp.inventory.Inventory.PurchaseOrder"*/-->
+<div layout:fragment="content">
+
+    <h3>Purchase Order <span th:text="${ po.poNo }"></span></h3>
+
+    <form class="ui form" th:object="${po}" method="post" th:action="@{'/inventory/po/edit/'+${po.poNo}}">
+        <input hidden="hidden" th:field="*{poNo}"/>
+        <input hidden="hidden" th:value="*{supplier.supplierId}" name="supplier"/>
+        <section style="display: grid;grid-template-columns:  1fr 1fr">
+            <div>
+                <h4>From</h4>
+                <div th:text="*{supplier.getName()}"></div>
+                <div th:text="*{supplier.getContactInfo().lineOne}"></div>
+                <div th:text="*{supplier.getContactInfo().lineTwo}"></div>
+                <div th:text="*{supplier.getContactInfo().city}"></div>
+                <div th:text="*{supplier.getContactInfo().postalCode}"></div>
+            </div>
+
+            <div>
+                <h4>To</h4>
+                <div th:text="*{supplier.getName()}"></div>
+                <div th:text="*{supplier.getContactInfo().lineOne}"></div>
+                <div th:text="*{supplier.getContactInfo().lineTwo}"></div>
+                <div th:text="*{supplier.getContactInfo().city}"></div>
+                <div th:text="*{supplier.getContactInfo().postalCode}"></div>
+            </div>
+        </section>
+        <style>
+            th, td {
+                padding: 5px
+            }
+
+            td:not(:first-child):not(:last-child) {
+                text-align: center;
+            }
+
+            td:last-child {
+                text-align: right;
+            }
+
+            td > input {
+                width: auto !important;
+            }
+        </style>
+        <section style="padding-top: 10px">
+            <table style="width: 100%;">
+                <thead>
+                <tr>
+                    <th style="text-align: left">Item Description</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Sub Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Test</td>
+                    <td>10</td>
+                    <td>NOS</td>
+                    <td>500</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td><input></td>
+                    <td><input type="number"></td>
+                    <td>NOS</td>
+                    <td>500</td>
+                    <td>5000</td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </section>
+        <button class="ui button">Save</button>
+    </form>
+
+</div>
+</html>

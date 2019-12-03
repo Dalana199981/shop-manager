@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorate="~{layouts/dashboard}" th:with="title='Purchase Orders'">
+<!--/*@thymesVar id="po" type="com.helix.erp.inventory.Inventory.PurchaseOrder"*/-->
+<div layout:fragment="content">
+
+    <h1>Purchase Order </h1>
+    <h4 class="ui dividing header">General Information</h4>
+    <div class="field">
+        <div class="two fields">
+            <div class="inline field">
+                <label>Supplier</label>
+                <form action="" method="get">
+                    <select class="ui dropdown" required name="supplier">
+                        <option th:each="sup:${suppliers}" th:value="${sup.supplierId}" th:text="${sup.name}">NOS
+                        </option>
+                    </select>
+                    <button class="ui button ">Select</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

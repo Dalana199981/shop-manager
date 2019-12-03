@@ -8,15 +8,13 @@
         <div class="card">
             <div class="card-header card-header-success">
                 <h3 class="card-title ">New Bill</h3>
-                <p class="card-category"> Here is a subtitle for this table</p>
             </div>
             <div class="card-body">
-                <form method="get" action="/bill/">
-                    <div class="form-group has-success bmd-form-group ">
-                        <input type="text" class="form-control form-control-success" autofocus name="customer"
-                               placeholder="Customer">
+                <form method="get" class="ui form" action="/bill/">
+                    <div class="inline field">
+                        <input type="text" autofocus name="customer" placeholder="Customer">
+                        <button class="ui button">Create Bill</button>
                     </div>
-                    <button class="btn btn-success">Create Bill</button>
                 </form>
             </div>
         </div>
@@ -26,11 +24,10 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h3 class="card-title ">Recent Bills</h3>
-                <p class="card-category"> Here is a subtitle for this table</p>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table ">
+                    <table class="ui table ">
                         <thead class="text-primsry">
                         <tr>
                             <th>Bill No</th>
@@ -43,52 +40,26 @@
                         <tbody>
                         <tr th:each=" item : ${bills}">
                             <td><a th:href="${'/bill/'+item.getId()}"
-                                   th:text="${#numbers.formatInteger(item.id,8)}"></a></td>
+                                   th:text="'#'+${#numbers.formatInteger(item.id,8)}"></a></td>
                             <td th:text="${item.customer}">Name</td>
                             <td th:text="${#temporals.format(item.startTime)}">Price</td>
                             <td th:text="${item.total}">Stock</td>
                             <td>
                                 <th:block th:switch="${item.status.name()}">
-                                    <span class="badge badge-pill badge-warning" th:case="'PENDING'">PENDING</span>
-                                    <span class="badge badge-pill badge-info"
-                                          th:case="'GOODS_ISSUED'">GOODS ISSUED</span>
-                                    <span class="badge badge-pill badge-success" th:case="'COMPLETED'">COMPLETED</span>
+                                    <span class="ui label yellow horizontal" th:case="'PENDING'">PENDING</span>
+                                    <span class="ui label green horizontal" th:case="'GOODS_ISSUED'">GOODS ISSUED</span>
+                                    <span class="ui label green horizontal" th:case="'COMPLETED'">COMPLETED</span>
                                 </th:block>
                                 <th:block th:switch="${item.paymentStatus().name()}">
-                                <span class="badge badge-pill badge-warning"
-                                      th:case="'PARTIALLY_PAID'">PARTIALLY PAID</span>
-                                    <span class="badge badge-pill badge-danger"
-                                          th:case="'UNPAID'">UNPAID</span>
-                                    <span class="badge badge-pill badge-success"
-                                          th:case="'FULLY_PAID'">FULLY PAID</span>
+                                    <span class="ui label yellow horizontal"
+                                          th:case="'PARTIALLY_PAID'">PARTIALLY PAID</span>
+                                    <span class="ui label red horizontal" th:case="'UNPAID'">UNPAID</span>
+                                    <span class="ui label green horizontal" th:case="'FULLY_PAID'">FULLY PAID</span>
                                 </th:block>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <ul class="pagination pagination-info">
-                        <li class="page-item" >
-                            <a href="javascript:void(0);" class="page-link"> prev</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link" th:text="${bills.size}">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link">2</a>
-                        </li>
-                        <li class="active page-item">
-                            <a href="javascript:void(0);" class="page-link">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link">next </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
